@@ -37,14 +37,18 @@
         })
 
         socket.on('list', data => {
+            console.log('Response type: List')
             console.log(data);
         })
 
         socket.on('live', data => {
+            console.log('Response type: Live Data')
             console.log(data)
         })
 
         socket.on('history', data => {
+            console.log('Response type: Historical Data')
+            console.log('Start Date: 12/28/2021')
             console.log(data)
         })
     </script>
