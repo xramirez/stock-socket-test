@@ -18,14 +18,17 @@ io.on('connection', (socket) => {
         let names = stock.showList()
         console.log(names)
         clearInterval(statShow)
+        io.emit('list', names);
     })
 
     socket.on('live', (data) => {
         let stockData = stock.showLiveData(data);
         console.log(stockData)
+        io.emit('live', stockData)
         statShow = setInterval(() => {
             stockData = stock.showLiveData(data);
             console.log(stockData);
+            io.emit('live', stockData);
         }, 5000)
     })
 
@@ -35,6 +38,7 @@ io.on('connection', (socket) => {
         console.log(data.startDate)
         stockData = stock.showHistoryData(data.names, data.startDate)
         stockData.forEach(item => console.log(item.days));
+        io.emit('history', stockData)
     })
 })
 

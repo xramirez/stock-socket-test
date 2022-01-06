@@ -34,7 +34,7 @@ class StockClass {
         let stocks = [];
 
         let today = new Date()
-        let dayDiff = Math.floor((today - Date.parse(startDate)) / 86400000);
+        let dayDiff = Math.floor((today - Date.parse(startDate)) / 86400000) + 1;
         for (let name of stockNames) {
             let stock = this.stocks.find(item => item.name === name)
             let days = [];

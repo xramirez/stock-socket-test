@@ -35,6 +35,18 @@
             randomDay.setDate(randomDay.getDate() - 8)
             socket.emit('history', {names: ['ABC', 'XYZ'], startDate: randomDay})
         })
+
+        socket.on('list', data => {
+            console.log(data);
+        })
+
+        socket.on('live', data => {
+            console.log(data)
+        })
+
+        socket.on('history', data => {
+            console.log(data)
+        })
     </script>
 </body>
 
