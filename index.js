@@ -1,7 +1,8 @@
 const app = require('express')();
 const http = require('http').Server(app);
-const io = require('socket.io')(http);
-const port = process.env.PORT || 3500;
+const io = require('socket.io')(httpServer, {
+    cors: {origin : '*'}
+  });const port = process.env.PORT || 3500;
 
 const Stocks = require('./util/stocks')
 const stock = new Stocks()
