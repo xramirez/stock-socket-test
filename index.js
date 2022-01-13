@@ -1,6 +1,6 @@
 const app = require('express')();
 const http = require('http').Server(app);
-const io = require('socket.io')(httpServer, {
+const io = require('socket.io')(http, {
     cors: {origin : '*'}
   });const port = process.env.PORT || 3500;
 
@@ -14,13 +14,15 @@ app.get('/', (req, res) => {
 io.on('connection', (socket) => {
     console.log('connection!')
     let statShow;
+    let names = stock.showList()
 
-    socket.on('list', function() {
-        let names = stock.showList()
+    socket.on('list', () => {
         console.log(names)
         clearInterval(statShow)
         io.emit('list', names);
     })
+
+    //socket.emit('list', names)
 
     socket.on('live', (data) => {
         let stockData = stock.showLiveData(data);
@@ -32,6 +34,12 @@ io.on('connection', (socket) => {
             io.emit('live', stockData);
         }, 5000)
     })
+    
+    statShow = setInterval(() => {
+        stockData2 = stock.showLiveData(['ABC']);
+        console.log(stockData2);
+        io.emit('live', stockData2);
+    }, 5000)
 
     socket.on('history', data => {
         clearInterval(statShow);
@@ -41,6 +49,10 @@ io.on('connection', (socket) => {
         stockData.forEach(item => console.log(item.days));
         io.emit('history', stockData)
     })
+
+    stockData = stock.showHistoryData(['ABC'],'2022-01-08')
+    socket.emit('history', stockData)
+
 })
 
 http.listen(port, () => {

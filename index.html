@@ -26,13 +26,13 @@
         })
 
         liveButton.addEventListener('click', (event) => {
-            socket.emit('live', ['ABC', 'XYZ'])
+            socket.emit('live', ['ABC'])
         })
 
         historyButton.addEventListener('click', (event) => {
             let randomDay = new Date();
             randomDay.setDate(randomDay.getDate() - 8)
-            socket.emit('history', {names: ['ABC', 'XYZ'], startDate: randomDay})
+            socket.emit('history', {names: ['ABC'], startDate: randomDay})
         })
 
         socket.on('list', data => {
