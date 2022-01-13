@@ -1,14 +1,14 @@
 const app = require('express')();
 const http = require('http').Server(app);
 const io = require('socket.io')(http, {
-    cors: {origin : '*'}
-  });const port = process.env.PORT || 3500;
+    cors: { origin: '*' }
+}); const port = process.env.PORT || 3500;
 
 const Stocks = require('./util/stocks')
 const stock = new Stocks()
 
 app.get('/', (req, res) => {
-    res.sendFile(__dirname+ '/index.html');
+    res.sendFile(__dirname + '/index.html');
 })
 
 io.on('connection', (socket) => {
@@ -22,7 +22,7 @@ io.on('connection', (socket) => {
         io.emit('list', names);
     })
 
-    //socket.emit('list', names)
+    socket.emit('list', names)
 
     socket.on('live', (data) => {
         let stockData = stock.showLiveData(data);
@@ -34,7 +34,7 @@ io.on('connection', (socket) => {
             io.emit('live', stockData);
         }, 5000)
     })
-    
+
     statShow = setInterval(() => {
         stockData2 = stock.showLiveData(['ABC']);
         console.log(stockData2);
@@ -50,7 +50,9 @@ io.on('connection', (socket) => {
         io.emit('history', stockData)
     })
 
-    stockData = stock.showHistoryData(['ABC'],'2022-01-08')
+    var today = new Date();
+    var lastweek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 7);
+    stockData = stock.showHistoryData(['ABC'], lastweek.toISOString().slice(0,10))
     socket.emit('history', stockData)
 
 })

@@ -18,14 +18,14 @@ class StockClass {
         //console.log(stockNames)
         let stocks = [];
         for (let name of stockNames) {
-            let date = new Date().toTimeString();
+            let day = new Date()
             let stock = this.stocks.find(item => item.name === name)
             let open = stock.value - Math.floor(Math.random() * 25);
             let close = stock.value + Math.floor(Math.random() * 25);
             let high = stock.value + Math.floor(Math.random() * 100);
             let low = stock.value - Math.floor(Math.random() * 100);
 
-            stocks.push({ name: stock.name, data: [ {date: date, open: open, close: close, high: high, low: low } ] })
+            stocks.push({ name: stock.name, data: [ {day: day, open: open, close: close, high: high, low: low } ] })
         }
         return stocks;
     }
@@ -50,22 +50,6 @@ class StockClass {
                 dayCounter++;
             }
             stocks.push({ name: stock.name, days })
-        }
-        return stocks;
-    }
-
-    showHistoryLiveData(stockNames, startDate, endDate) {
-        //console.log(stockNames)
-        let stocks = [];
-        for (let name of stockNames) {
-            let date = new Date().toTimeString();
-            let stock = this.stocks.find(item => item.name === name)
-            let open = stock.value - Math.floor(Math.random() * 25);
-            let close = stock.value + Math.floor(Math.random() * 25);
-            let high = stock.value + Math.floor(Math.random() * 100);
-            let low = stock.value - Math.floor(Math.random() * 100);
-
-            stocks.push({ name: stock.name, data: [{ date: date, open: open, close: close, high: high, low: low }] })
         }
         return stocks;
     }
