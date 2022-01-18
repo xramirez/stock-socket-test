@@ -22,7 +22,7 @@ io.on('connection', (socket) => {
         io.emit('list', names);
     })
 
-    socket.emit('list', names)
+    //socket.emit('list', names)
 
     socket.on('live', (data) => {
         let stockData = stock.showLiveData(data);
@@ -35,25 +35,25 @@ io.on('connection', (socket) => {
         }, 5000)
     })
 
-    statShow = setInterval(() => {
-        stockData2 = stock.showLiveData(['ABC']);
-        console.log(stockData2);
-        io.emit('live', stockData2);
-    }, 5000)
+    // statShow = setInterval(() => {
+    //     stockData2 = stock.showLiveData(['ABC']);
+    //     console.log(stockData2);
+    //     io.emit('live', stockData2);
+    // }, 5000)
 
     socket.on('history', data => {
         clearInterval(statShow);
         //console.log(data);
         console.log(data.startDate)
-        stockData = stock.showHistoryData(data.names, data.startDate)
-        stockData.forEach(item => console.log(item.days));
+        stockData = stock.showHistoryData(data.names, data.startDate,data.endDate,data.interval)
+        //stockData.forEach(item => console.log(item.days));
         io.emit('history', stockData)
     })
 
-    var today = new Date();
-    var lastweek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 7);
-    stockData = stock.showHistoryData(['ABC'], lastweek.toISOString().slice(0,10))
-    socket.emit('history', stockData)
+    // var today = new Date();
+    // var lastweek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 7);
+    // stockData = stock.showHistoryData(['ABC'], lastweek.toISOString().slice(0,10))
+    // socket.emit('history', stockData)
 
 })
 

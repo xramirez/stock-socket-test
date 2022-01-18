@@ -31,8 +31,10 @@
 
         historyButton.addEventListener('click', (event) => {
             let randomDay = new Date();
-            randomDay.setDate(randomDay.getDate() - 8)
-            socket.emit('history', {names: ['ABC'], startDate: randomDay})
+            randomDay.setDate(randomDay.getDate()-2)
+            let today = new Date();
+            console.log(randomDay,today)
+            socket.emit('history', {names: ['ABC'], startDate: randomDay, endDate:today,interval:'5m'})
         })
 
         socket.on('list', data => {
@@ -47,7 +49,6 @@
 
         socket.on('history', data => {
             console.log('Response type: Historical Data')
-            console.log('Start Date: 12/28/2021')
             console.log(data)
         })
     </script>
