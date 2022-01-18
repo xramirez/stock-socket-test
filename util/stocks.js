@@ -2,8 +2,11 @@ class StockClass {
     constructor() {
         this.stocks = [
             { name: 'ABC', value: 6450.3 },
-            { name: 'XYZ', value: 2524.2 },
-            { name: '123', value: 555.45 }
+            { name: 'XYZ', value: 2124.2 },
+            { name: '123', value: 17.45 },
+            { name: '456', value: 0.45 },
+            { name: '789', value: 44555.45 },
+            { name: 'NBRs', value: 855.45 }
         ]
     }
 
